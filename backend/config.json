@@ -1,0 +1,6 @@
+{
+  "TmDbApi": {
+    "BaseUrl": "https://api.themoviedb.org/3/",
+    "Key": ""
+  }
+}
