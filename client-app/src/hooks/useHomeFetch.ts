@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import API, { Movie, Movies } from '../API';
-import { getJson, storeJson } from '../session-storage';
+import API, { Movie } from '../API';
 
 const initialState = {
   page: 0,
@@ -8,8 +7,6 @@ const initialState = {
   total_pages: 0,
   total_results: 0,
 };
-
-const storageKey = 'homeState';
 
 export const useHomeFetch = () => {
   const [state, setState] = useState(initialState);
@@ -37,14 +34,6 @@ export const useHomeFetch = () => {
 
   // initial and search
   useEffect(() => {
-    if (!searchTerm) {
-      const sessionState = getJson<Movies>(storageKey);
-      if (sessionState) {
-        setState(sessionState);
-        return;
-      }
-    }
-
     setState(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
@@ -56,13 +45,6 @@ export const useHomeFetch = () => {
       setIsLoadingMore(false);
     }
   }, [isLoadingMore, searchTerm, state.page]);
-
-  // write to session
-  useEffect(() => {
-    if (!searchTerm) {
-      storeJson(storageKey, state);
-    }
-  }, [searchTerm, state]);
 
   return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };
 };

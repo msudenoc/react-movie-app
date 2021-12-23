@@ -1,4 +1,4 @@
-import { SEARCH_BASE_URL, POPULAR_BASE_URL, API_URL, API_KEY, REQUEST_TOKEN_URL, LOGIN_URL, SESSION_ID_URL } from './config';
+import { API_URL, API_KEY, REQUEST_TOKEN_URL, LOGIN_URL, SESSION_ID_URL, MOVIES_URL } from './config';
 
 const defaultConfig = {
   method: 'POST',
@@ -50,15 +50,15 @@ export type Credits = {
 
 const apiSettings = {
   fetchMovies: async (searchTerm: string, page: number): Promise<Movies> => {
-    const endpoint = searchTerm ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}` : `${POPULAR_BASE_URL}&page=${page}`;
+    const endpoint = searchTerm ? `${MOVIES_URL}/search?searchTerm=${searchTerm}&page=${page}` : `${MOVIES_URL}/popular?page=${page}`;
     return await (await fetch(endpoint)).json();
   },
   fetchMovie: async (movieId: number): Promise<Movie> => {
-    const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+    const endpoint = `${MOVIES_URL}/${movieId}`;
     return await (await fetch(endpoint)).json();
   },
   fetchCredits: async (movieId: number): Promise<Credits> => {
-    const creditsEndpoint = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
+    const creditsEndpoint = `${MOVIES_URL}/${movieId}/credits`;
     return await (await fetch(creditsEndpoint)).json();
   },
   // Bonus material below for login

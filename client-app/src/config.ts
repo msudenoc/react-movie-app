@@ -17,6 +17,9 @@ const BACKDROP_SIZE: string = 'w1280';
 // w92, w154, w185, w342, w500, w780, original
 const POSTER_SIZE: string = 'w780';
 
+const API_URL2: string = 'http://localhost:3000/api';
+const MOVIES_URL: string = `${API_URL2}/movie`;
+
 export {
   SEARCH_BASE_URL,
   POPULAR_BASE_URL,
@@ -28,4 +31,5 @@ export {
   REQUEST_TOKEN_URL,
   LOGIN_URL,
   SESSION_ID_URL,
+  MOVIES_URL,
 };

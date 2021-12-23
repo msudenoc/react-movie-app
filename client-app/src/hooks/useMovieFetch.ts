@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getJson, storeJson } from '../session-storage';
-
 import API, { Cast, Crew, Movie } from '../API';
 
 export type MovieState = Movie & {
@@ -42,18 +40,8 @@ export const useMovieFetch = (movieId: number): UseMovieFetchResult => {
       setLoading(false);
     };
 
-    const stored = getJson<MovieState>(movieId);
-    if (stored) {
-      setState(stored);
-      setLoading(false);
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, [movieId]);
-
-  useEffect(() => {
-    storeJson(movieId, state);
-  }, [movieId, state]);
 
   return { state, loading, error };
 };

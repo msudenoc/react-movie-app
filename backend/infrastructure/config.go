@@ -1,4 +1,4 @@
-package config
+package infrastructure
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type ApiConfig struct {
 var config *AppConfig
 var isRead bool = false
 
-func Get() *AppConfig {
+func GetAppConfig() *AppConfig {
 	if isRead {
 		return config
 	}
@@ -28,8 +28,8 @@ func Get() *AppConfig {
 	defer file.Close()
 
 	isRead = true
-	config := AppConfig{}
+	config = &AppConfig{}
 	json.NewDecoder(file).Decode(&config)
 
-	return &config
+	return config
 }
